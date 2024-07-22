@@ -1,17 +1,15 @@
 package org.example.config;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import org.thymeleaf.context.Context;
 import java.io.IOException;
-import java.util.Map;
 
 public class TemplateConfig {
-    TemplateEngine templateEngine;
+    private TemplateEngine templateEngine;
 
     public TemplateConfig() throws ServletException {
         templateEngine = new TemplateEngine();
@@ -20,15 +18,15 @@ public class TemplateConfig {
 
     private ITemplateResolver templateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("resources/templates/");
+        templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");
         templateResolver.setCacheable(false);
         return templateResolver;
     }
 
-    public void process(String templateName, Context context, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=utf-8");
-        templateEngine.process(templateName,context, response.getWriter());
+    public void process(String templateName, Context context, jakarta.servlet.http.HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        templateEngine.process(templateName, context, response.getWriter());
     }
 }
